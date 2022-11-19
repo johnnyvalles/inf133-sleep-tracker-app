@@ -12,8 +12,8 @@ const routes: Routes = [
         loadChildren: () => import('../summary/summary.module').then(m => m.SummaryPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'overnight-sleep',
+        loadChildren: () => import('../overnight-sleep/overnight-sleep.module').then(m => m.OvernightSleepPageModule)
       },
       {
         path: 'tab3',
