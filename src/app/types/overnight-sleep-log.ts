@@ -74,6 +74,19 @@ export class OvernightSleepLog extends SleepLog {
         return durationString;
     }
 
+    formattedSleepDurationHoursMins(): string {
+        const duration = this.sleepDurationHoursMins();
+        let str = "";
+
+        str += duration[0];
+        str += duration[0] != 1 ? "hrs " : "hr ";
+        
+        str += duration[1];
+        str += duration[1] != 1 ? "mins" : "min";
+
+        return str;
+    }
+
     formattedSleepStartStrings(): string[] {
         const month: number = this._sleepStart.getMonth() + 1;
         const day: number = this._sleepStart.getDate();
@@ -118,6 +131,36 @@ export class OvernightSleepLog extends SleepLog {
         const locale: string = "en-US";
 
         return [numerical, this._sleepEnd.toLocaleString(locale, options)];
+    }
+
+    formattedSleepStart(): string {
+        let str = "";
+        let hours = this._sleepStart.getHours();
+        let minutes = this._sleepStart.getMinutes();
+        let suffix = hours >= 12 ? " PM" : " AM";
+        hours = ((hours + 11) % 12 + 1);
+
+        str += hours < 10 ? "0" + hours : hours;
+        str += ":";
+        str += minutes < 10 ? "0" + minutes : minutes;
+        str += suffix;
+
+        return str;
+    }
+
+    formattedSleepEnd(): string {
+        let str = "";
+        let hours = this._sleepEnd.getHours();
+        let minutes = this._sleepEnd.getMinutes();
+        let suffix = hours >= 12 ? " PM" : " AM";
+        hours = ((hours + 11) % 12 + 1);
+
+        str += hours < 10 ? "0" + hours : hours;
+        str += ":";
+        str += minutes < 10 ? "0" + minutes : minutes;
+        str += suffix;
+
+        return str;
     }
 
     sleepStartDayOfWeek(): string {
