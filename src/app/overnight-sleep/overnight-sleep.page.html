@@ -53,7 +53,33 @@
     </ion-card-content>
   </ion-card>
 
-  <div class="previous-logs ion-padding-horizontal">
-    <h2>Sleep Logs</h2>
+  <div class="previous-logs">
+    <h2 class="ion-padding-horizontal">Sleep Logs</h2>
+
+    <ion-card *ngFor="let sleepLog of sleepService.overnightLogs">
+      <ion-card-header>
+        <ion-card-title>{{ sleepLog.formattedSleepStartStrings()[1] }}</ion-card-title>
+        <ion-card-subtitle>
+          Duration: {{ sleepLog.formattedSleepDurationHoursMins() }}
+        </ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="moon"></ion-icon> {{ sleepLog.formattedSleepStart() }}
+          </ion-col>
+          <ion-col>
+            <ion-icon name="sunny"></ion-icon> {{ sleepLog.formattedSleepEnd() }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{ sleepLog.notes }}
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
   </div>
 </ion-content>
