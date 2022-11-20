@@ -8,6 +8,8 @@ import { SleepService } from '../services/sleep.service';
 })
 export class OvernightSleepPage {
 
-  constructor() {}
+  constructor(public sleepService: SleepService) {
+    
+  }
 
 }
