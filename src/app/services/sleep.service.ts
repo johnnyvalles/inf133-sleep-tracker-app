@@ -7,16 +7,16 @@ import { OVERNIGHT_SLEEP_LOGS, SLEEPINESS_LOGS } from '../data/logs';
   providedIn: 'root'
 })
 export class SleepService {
-  public static overnightLogs: OvernightSleepLog[] = [];
-	public static sleepinessLogs: SleepinessLog[] = [];
+  public  overnightLogs: OvernightSleepLog[] = [];
+	public  sleepinessLogs: SleepinessLog[] = [];
 
   constructor() {
     for (let log of OVERNIGHT_SLEEP_LOGS) {
-      SleepService.overnightLogs.push(log);
+      this.overnightLogs.push(log);
     }
 
     for (let log of SLEEPINESS_LOGS) {
-      SleepService.sleepinessLogs.push(log);
+      this.sleepinessLogs.push(log);
     }
   }
 }
