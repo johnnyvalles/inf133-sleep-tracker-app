@@ -87,7 +87,7 @@ export class OvernightSleepLog extends SleepLog {
         numerical += year;
 
         const options = {
-            month: "long",
+            month: "short",
             day: "numeric",
             year: "numeric"
         } as const;
@@ -110,7 +110,7 @@ export class OvernightSleepLog extends SleepLog {
         numerical += year;
 
         const options = {
-            month: "long",
+            month: "short",
             day: "numeric",
             year: "numeric"
         } as const;
