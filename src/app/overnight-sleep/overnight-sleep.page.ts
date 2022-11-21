@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepLog } from '../types/overnight-sleep-log';
 import { ToastController } from '@ionic/angular';
-import { format, utcToZonedTime } from 'date-fns-tz';
 
 @Component({
   selector: 'app-overnight-sleep',
@@ -10,7 +9,6 @@ import { format, utcToZonedTime } from 'date-fns-tz';
   styleUrls: ['overnight-sleep.page.scss']
 })
 export class OvernightSleepPage implements OnInit {
-
   public sleepStart: string; // ISO8601 string
   public sleepEnd: string;   // ISO8601 string
   public notes:string = "";
@@ -27,9 +25,9 @@ export class OvernightSleepPage implements OnInit {
     this.sleepEnd = new Date().toISOString();
   }
 
-  async presentLogCreatedToast() {
+  async presentSuccessToast(msg: string) {
     const toast = await this.toastController.create({
-      message: "Overnight sleep log created!",
+      message: msg,
       duration: 1500,
       icon: "checkmark-circle",
       position: "top"
@@ -38,7 +36,7 @@ export class OvernightSleepPage implements OnInit {
     await toast.present();
   }
 
-  async presentLogCreationError(msg: string) {
+  async presentErrorToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
       duration: 1500,
@@ -55,12 +53,12 @@ export class OvernightSleepPage implements OnInit {
     let end = new Date(this.sleepEnd);
 
     if (start.getTime() == end.getTime()) {
-      this.presentLogCreationError("Start and end times cannot be the same.");
+      this.presentErrorToast("Start and end times cannot be the same.");
       return;
     }
 
     if (start > end) {
-      this.presentLogCreationError("Start time cannot be after end time.");
+      this.presentErrorToast("Start time cannot be after end time.");
       return;
     }
 
@@ -71,5 +69,13 @@ export class OvernightSleepPage implements OnInit {
     );
 
     this.sleepService.overnightLogs.unshift(log);
+  }
+
+  deleteOvernightSleepLog(id: string) {    
+    if (this.sleepService.deleteOvernightSleepLog(id)) {
+      this.presentSuccessToast("Overnight sleep log deleted.");
+    } else {
+      this.presentErrorToast("Cannot delete a non-existing log.");
+    }
   }
 }
