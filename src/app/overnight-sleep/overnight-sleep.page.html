@@ -25,7 +25,10 @@
         ></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="sleep-start"></ion-datetime>
+            <ion-datetime
+              id="sleep-start"
+              [(ngModel)]="sleepStart"
+            ></ion-datetime>
           </ng-template>
         </ion-modal>
       </div>
@@ -37,16 +40,16 @@
         ></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="sleep-end"></ion-datetime>
+            <ion-datetime id="sleep-end" [(ngModel)]="sleepEnd"></ion-datetime>
           </ng-template>
         </ion-modal>
       </div>
       <div class="ion-padding-vertical">
         <ion-label>Notes</ion-label>
-        <ion-textarea placeholder="Optional sleep log notes."></ion-textarea>
+        <ion-textarea placeholder="Optional sleep log notes." [(ngModel)]="notes"></ion-textarea>
       </div>
 
-      <ion-button expand="block" shape="rounded">
+      <ion-button expand="block" shape="rounded" (click)="onCreateLog()">
         <ion-icon slot="start" name="add-circle"></ion-icon>
         Create Log
       </ion-button>
@@ -56,12 +59,17 @@
   <div class="previous-logs">
     <h2 class="ion-padding-horizontal">Sleep Logs</h2>
 
-    <ion-card *ngFor="let sleepLog of sleepService.overnightLogs">
+    <ion-card *ngFor="let sleepLog of sleepService.overnightLogs" class="log">
       <ion-card-header>
         <ion-card-title>{{ sleepLog.formattedSleepStartStrings()[1] }}</ion-card-title>
-        <ion-card-subtitle>
-          Duration: {{ sleepLog.formattedSleepDurationHoursMins() }}
-        </ion-card-subtitle>
+        <ion-card-subtitle>Duration: {{ sleepLog.formattedSleepDurationHoursMins() }}</ion-card-subtitle>
+        <!-- <ion-fab vertical="top" horizontal="end"> -->
+          <!-- <ion-fab-button size="small" fill="clear"> -->
+            <ion-button fill="clear">
+              <ion-icon name="information-circle-outline" size="large"></ion-icon>
+            </ion-button>
+          <!-- </ion-fab-button> -->
+        <!-- </ion-fab> -->
       </ion-card-header>
     
       <ion-card-content>
@@ -78,8 +86,12 @@
             {{ sleepLog.notes }}
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            {{ sleepLog.id }}
+          </ion-col>
+        </ion-row>
       </ion-card-content>
     </ion-card>
-
   </div>
 </ion-content>
