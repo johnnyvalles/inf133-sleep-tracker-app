@@ -1,15 +1,69 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Sleepiness
-    </ion-title>
+    <ion-title>Sleepiness</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Sleepiness</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Sleepiness Log</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <h2>How sleepy are you feeling right now?</h2>
+        <ion-range
+          [snaps]="true"
+          [pin]="true"
+          [min]="1"
+          [max]="7"
+          [(ngModel)]="sleepinessValue"
+        >
+          <ion-icon slot="start" name="happy-outline"></ion-icon>
+          <ion-icon slot="end" name="sad-outline"></ion-icon>
+        </ion-range>
+      </div>
+      <div class="ion-padding-vertical">
+        <h2>When did you feel this sleepy?</h2>
+        <ion-datetime-button
+          datetime="sleepiness-date"
+          class="ion-padding-top"
+        ></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="sleepiness-date" [(ngModel)]="sleepinessDate"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+      <ion-button
+        expand="block"
+        shape="rounded"
+        (click)="onCreateLog()"
+      >
+        <ion-icon slot="start" name="add-circle"></ion-icon>
+        Create Log
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <div class="previous-logs">
+    <h2 class="ion-padding-horizontal">Sleepiness Logs</h2>
+    <ion-card class="log" *ngFor="let log of sleepService.sleepinessLogs">
+      <ion-card-header>
+        <ion-card-title>{{ log.formattedSleepStartStrings()[1] }}</ion-card-title>
+        <ion-card-subtitle>{{ log.formattedSleepStartStrings()[0]}}, {{ log.formattedSleepinessDate() }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            {{ log.sleepiness }}: {{ log.description }}
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+      <ion-button fill="clear" color="danger" (click)="deleteSleepinessLog($any(log).id)">Delete</ion-button>
+    </ion-card>
+  </div>
 </ion-content>

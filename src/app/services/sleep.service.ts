@@ -22,4 +22,13 @@ export class SleepService {
     }
     return false;
   }
+
+  deleteSleepinessLog(id: string): boolean {
+    let index = this.sleepinessLogs.findIndex(log => log.id === id);
+    if (index !== -1) {
+      this.sleepinessLogs.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
 }
