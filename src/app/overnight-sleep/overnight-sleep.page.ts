@@ -30,7 +30,8 @@ export class OvernightSleepPage implements OnInit {
       message: msg,
       duration: 1500,
       icon: "checkmark-circle",
-      position: "top"
+      position: "top",
+      color: "success"
     });
 
     await toast.present();
@@ -41,7 +42,8 @@ export class OvernightSleepPage implements OnInit {
       message: msg,
       duration: 1500,
       icon: "close-circle",
-      position: "top"
+      position: "top",
+      color: "danger"
     });
 
     await toast.present();
