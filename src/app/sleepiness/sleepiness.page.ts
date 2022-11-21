@@ -51,7 +51,7 @@ export class SleepinessPage {
 
   deleteSleepinessLog(id: string) {    
     if (this.sleepService.deleteSleepinessLog(id)) {
-      this.presentSuccessToast("Overnight sleep log deleted.");
+      this.presentSuccessToast("Sleepiness log deleted.");
     } else {
       this.presentErrorToast("Cannot delete a non-existing log.");
     }
