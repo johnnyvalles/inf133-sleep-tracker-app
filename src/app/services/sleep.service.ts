@@ -11,13 +11,7 @@ export class SleepService {
 	public  sleepinessLogs: SleepinessLog[] = [];
 
   constructor() {
-    for (let log of OVERNIGHT_SLEEP_LOGS) {
-      this.overnightLogs.push(log);
-    }
-
-    for (let log of SLEEPINESS_LOGS) {
-      this.sleepinessLogs.push(log);
-    }
+  
   }
 
   deleteOvernightSleepLog(id: string): boolean {
