@@ -1,3 +1,4 @@
+import { listenerCount } from "process";
 import { SleepLog } from "./sleep-log";
 
 export class SleepinessLog extends SleepLog {
@@ -35,5 +36,47 @@ export class SleepinessLog extends SleepLog {
 
     set sleepinessDate(sleepinessDate: Date) {
         this._sleepinessDate = sleepinessDate;
+    }
+
+    get description(): string {
+        return SleepinessLog.SCALE_DESCRIPTIONS[this._sleepiness]!; 
+    }
+
+    formattedSleepStartStrings(): string[] {
+        const month: number = this._sleepinessDate.getMonth() + 1;
+        const day: number = this._sleepinessDate.getDate();
+        const year: number = this._sleepinessDate.getFullYear();
+        let numerical = "";
+        
+        numerical += (month < 10 ? "0" + month : month);
+        numerical += "/";
+        numerical += (day < 10 ? "0" + day : day);
+        numerical += "/";
+        numerical += year;
+
+        const options = {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        } as const;
+
+        const locale: string = "en-US";
+
+        return [numerical, this._sleepinessDate.toLocaleString(locale, options)];
+    }
+
+    formattedSleepinessDate(): string {
+        let str = "";
+        let hours = this.sleepinessDate.getHours();
+        let minutes = this.sleepinessDate.getMinutes();
+        let suffix = hours >= 12 ? " PM" : " AM";
+        hours = ((hours + 11) % 12 + 1);
+
+        str += hours < 10 ? "0" + hours : hours;
+        str += ":";
+        str += minutes < 10 ? "0" + minutes : minutes;
+        str += suffix;
+
+        return str;
     }
 }
