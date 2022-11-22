@@ -41,4 +41,17 @@ export class SleepService {
     }
     return false;
   }
+
+  // date is in ISO8601 format
+  updateOvernightSleepLog(id: string, sleepStart: string, sleepEnd: string, notes: string): boolean {
+    let index = this.overnightLogs.findIndex(log => log.id === id);
+    
+    if (index !== -1) {
+      this.overnightLogs[index].sleepStart = sleepStart;
+      this.overnightLogs[index].sleepEnd = sleepEnd;
+      this.overnightLogs[index].notes = notes;
+      return true;
+    }
+    return false;
+  }
 }

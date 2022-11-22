@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { OvernightSleepPage } from './overnight-sleep.page';
 
 import { OvernightSleepPageRoutingModule } from './overnight-sleep-routing.module';
+import { OvernightSleepEditPageModule } from '../overnight-sleep-edit/overnight-sleep-edit.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    OvernightSleepPageRoutingModule
+    OvernightSleepPageRoutingModule,
+    OvernightSleepEditPageModule
   ],
   declarations: [OvernightSleepPage]
 })

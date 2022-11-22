@@ -79,6 +79,7 @@
           </ion-col>
         </ion-row>
       </ion-card-content>
+      <ion-button fill="clear" color="primary" (click)="showModal($any(sleepLog))">Edit</ion-button>
       <ion-button fill="clear" color="danger" (click)="deleteOvernightSleepLog($any(sleepLog).id)">Delete</ion-button>
     </ion-card>
   </div>

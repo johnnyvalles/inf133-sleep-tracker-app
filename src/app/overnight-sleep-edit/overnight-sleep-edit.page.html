@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()">Confirm</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Edit log</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> {{ sleepLog.overnightSleepTitle() }} </ion-card-title>
+      <ion-card-subtitle>
+        Duration: {{ sleepLog.sleepDurationString() }}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="moon"></ion-icon>
+          {{ sleepLog.overnightSleepStart() }}
+        </ion-col>
+        <ion-col>
+          <ion-icon name="sunny"></ion-icon>
+          {{ sleepLog.overnightSleepEnd() }}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>{{ sleepLog.notes }} </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Overnight Sleep Log</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="sleep-log-data">
+        <h2>What time did you sleep?</h2>
+        <ion-datetime-button
+          datetime="sleep-start-edit"
+          class="ion-padding-top"
+        ></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="sleep-start-edit"
+              [(ngModel)]="sleepStart"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+      <div class="ion-padding-vertical">
+        <h2>What time did you wake up?</h2>
+        <ion-datetime-button
+          datetime="sleep-end-edit"
+          class="ion-padding-top"
+        ></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="sleep-end-edit"
+              [(ngModel)]="sleepEnd"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+      <div class="ion-padding-vertical">
+        <ion-label>Notes</ion-label>
+        <ion-textarea placeholder="Optional sleep log notes." [(ngModel)]="notes"></ion-textarea>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepLog } from '../types/overnight-sleep-log';
 import { ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
+import { OvernightSleepEditPage } from '../overnight-sleep-edit/overnight-sleep-edit.page';
 
 @Component({
   selector: 'app-overnight-sleep',
@@ -15,6 +17,7 @@ export class OvernightSleepPage {
   public notes:string;
 
   constructor(
+    private modalController: ModalController,
     public sleepService: SleepService,
     private toastController: ToastController) {
       this.sleepStart = format(parseISO(new Date().toISOString()), "yyyy-LL-dd'T'HH:mm:'00'XXX");
@@ -77,5 +80,16 @@ export class OvernightSleepPage {
     } else {
       this.presentErrorToast("Cannot delete a non-existing log.");
     }
+  }
+
+  async showModal(log: OvernightSleepLog) {
+    const modal = await this.modalController.create({
+      component: OvernightSleepEditPage,
+      componentProps: {
+        sleepLog: log
+      },
+    });
+
+    await modal.present();
   }
 }
