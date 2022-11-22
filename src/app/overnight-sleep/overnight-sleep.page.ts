@@ -1,28 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepLog } from '../types/overnight-sleep-log';
 import { ToastController } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-overnight-sleep',
   templateUrl: 'overnight-sleep.page.html',
   styleUrls: ['overnight-sleep.page.scss']
 })
-export class OvernightSleepPage implements OnInit {
+export class OvernightSleepPage {
   public sleepStart: string; // ISO8601 string
   public sleepEnd: string;   // ISO8601 string
-  public notes:string = "";
+  public notes:string;
 
   constructor(
     public sleepService: SleepService,
     private toastController: ToastController) {
-      this.sleepStart = new Date().toISOString();
-      this.sleepEnd = new Date().toISOString();
-  }
-
-  ngOnInit(): void {
-    this.sleepStart = new Date().toISOString();
-    this.sleepEnd = new Date().toISOString();
+      this.sleepStart = format(parseISO(new Date().toISOString()), "yyyy-LL-dd'T'HH:mm:'00'XXX");
+      this.sleepEnd = format(parseISO(new Date().toISOString()), "yyyy-LL-dd'T'HH:mm:'00'XXX");
+      this.notes = "";
   }
 
   async presentSuccessToast(msg: string) {
@@ -65,12 +62,13 @@ export class OvernightSleepPage implements OnInit {
     }
 
     let log = new OvernightSleepLog(
-      start,
-      end,
+      this.sleepStart,
+      this.sleepEnd,
       this.notes
     );
 
     this.sleepService.overnightLogs.unshift(log);
+    this.presentSuccessToast("Overnight sleep log created.");
   }
 
   deleteOvernightSleepLog(id: string) {    

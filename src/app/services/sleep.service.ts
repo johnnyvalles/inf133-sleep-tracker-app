@@ -14,11 +14,11 @@ export class SleepService {
   }
 
   deleteOvernightSleepLog(id: string): boolean {
-    // let index = this.overnightLogs.findIndex(log => log.id === id);
-    // if (index !== -1) {
-    //   this.overnightLogs.splice(index, 1);
-    //   return true;
-    // }
+    let index = this.overnightLogs.findIndex(log => log.id === id);
+    if (index !== -1) {
+      this.overnightLogs.splice(index, 1);
+      return true;
+    }
     return false;
   }
 

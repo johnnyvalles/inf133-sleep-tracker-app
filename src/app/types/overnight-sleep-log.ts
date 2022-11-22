@@ -1,11 +1,12 @@
 import { SleepLog } from "./sleep-log";
+import { format, parseISO } from 'date-fns';
 
 export class OvernightSleepLog extends SleepLog {
-    private _sleepStart: Date;
-    private _sleepEnd: Date;
+    private _sleepStart: string;
+    private _sleepEnd: string;
     private _notes: string;
 
-    constructor(sleepStart: Date, sleepEnd: Date, notes: string) {
+    constructor(sleepStart: string, sleepEnd: string, notes: string) {
         super();
         this._sleepStart = sleepStart;
         this._sleepEnd = sleepEnd;
@@ -13,19 +14,19 @@ export class OvernightSleepLog extends SleepLog {
     }
 
     // getters & setters
-    set sleepStart(sleepStart: Date) {
+    set sleepStart(sleepStart: string) {
         this._sleepStart = sleepStart;
     }
 
-    get sleepStart(): Date {
+    get sleepStart(): string {
         return this._sleepStart;
     }
 
-    set sleepEnd(sleepEnd: Date) {
+    set sleepEnd(sleepEnd: string) {
         this._sleepEnd = sleepEnd;
     }
 
-    get sleepEnd(): Date {
+    get sleepEnd(): string {
         return this._sleepEnd;
     }
 
@@ -37,13 +38,25 @@ export class OvernightSleepLog extends SleepLog {
         return this._notes;
     }
 
-    // utilities
+    overnightSleepTitle(): string {
+        return format(parseISO(this._sleepStart), 'MMMM d, yyyy');
+    }
+
+    overnightSleepSubtitle(): string {
+        return format(parseISO(this._sleepStart), 'MM/dd/yyyy, hh:mm a');
+    }
+
+    overnightSleepStart(): string {
+        return format(parseISO(this._sleepStart), "hh:mm a");
+    }
+
+    overnightSleepEnd(): string {
+        return format(parseISO(this._sleepEnd), "hh:mm a");
+    }
+
     sleepDurationMilli(): number {
-        // start time in milliseconds
-        const startMs = this._sleepStart.getTime();
-        // end time in milliseconds
-        const endMs = this._sleepEnd.getTime();
-        // end - start in milliseconds
+        const startMs = new Date(this._sleepStart).getTime();
+        const endMs = new Date(this._sleepEnd).getTime();
         return endMs - startMs;
     }
 
@@ -56,7 +69,6 @@ export class OvernightSleepLog extends SleepLog {
     sleepDurationString(): string {
         const duration: number[] = this.sleepDurationHoursMins();
         let durationString: string = "";
-
         durationString += duration[0];
         if (duration[0] !== 1) {
             durationString += " hrs, ";
@@ -72,156 +84,5 @@ export class OvernightSleepLog extends SleepLog {
         }
 
         return durationString;
-    }
-
-    formattedSleepDurationHoursMins(): string {
-        const duration = this.sleepDurationHoursMins();
-        let str = "";
-
-        str += duration[0];
-        str += duration[0] != 1 ? "hrs " : "hr ";
-        
-        str += duration[1];
-        str += duration[1] != 1 ? "mins" : "min";
-
-        return str;
-    }
-
-    formattedSleepStartStrings(): string[] {
-        const month: number = this._sleepStart.getMonth() + 1;
-        const day: number = this._sleepStart.getDate();
-        const year: number = this._sleepStart.getFullYear();
-        let numerical = "";
-        
-        numerical += (month < 10 ? "0" + month : month);
-        numerical += "/";
-        numerical += (day < 10 ? "0" + day : day);
-        numerical += "/";
-        numerical += year;
-
-        const options = {
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-        } as const;
-
-        const locale: string = "en-US";
-
-        return [numerical, this._sleepStart.toLocaleString(locale, options)];
-    }
-
-    formattedSleepEndStrings(): string[] {
-        const month: number = this._sleepEnd.getMonth() + 1;
-        const day: number = this._sleepEnd.getDate();
-        const year: number = this._sleepEnd.getFullYear();
-        let numerical = "";
-        
-        numerical += (month < 10 ? "0" + month : month);
-        numerical += "/";
-        numerical += (day < 10 ? "0" + day : day);
-        numerical += "/";
-        numerical += year;
-
-        const options = {
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-        } as const;
-
-        const locale: string = "en-US";
-
-        return [numerical, this._sleepEnd.toLocaleString(locale, options)];
-    }
-
-    formattedSleepStart(): string {
-        let str = "";
-        let hours = this._sleepStart.getHours();
-        let minutes = this._sleepStart.getMinutes();
-        let suffix = hours >= 12 ? " PM" : " AM";
-        hours = ((hours + 11) % 12 + 1);
-
-        str += hours < 10 ? "0" + hours : hours;
-        str += ":";
-        str += minutes < 10 ? "0" + minutes : minutes;
-        str += suffix;
-
-        return str;
-    }
-
-    formattedSleepEnd(): string {
-        let str = "";
-        let hours = this._sleepEnd.getHours();
-        let minutes = this._sleepEnd.getMinutes();
-        let suffix = hours >= 12 ? " PM" : " AM";
-        hours = ((hours + 11) % 12 + 1);
-
-        str += hours < 10 ? "0" + hours : hours;
-        str += ":";
-        str += minutes < 10 ? "0" + minutes : minutes;
-        str += suffix;
-
-        return str;
-    }
-
-    sleepStartDayOfWeek(): string {
-        const options = {
-            weekday: "long"
-        } as const;
-        const locale: string = "en-US";
-
-        return this._sleepStart.toLocaleString(locale, options);
-    }
-
-    sleepEndDayOfWeek(): string {
-        const options = {
-            weekday: "long"
-        } as const;
-        const locale: string = "en-US";
-
-        return this._sleepEnd.toLocaleString(locale, options);
-    }
-
-    sleepStartMonth(): string {
-        const options = {
-            month: "long"
-        } as const;
-        const locale: string = "en-US";
-
-        return this._sleepStart.toLocaleString(locale, options);
-    }
-
-    sleepEndMonth(): string {
-        const options = {
-            month: "long"
-        } as const;
-        const locale: string = "en-US";
-
-        return this._sleepEnd.toLocaleString(locale, options);
-    }
-
-    sleepStartYear(): string {
-        return "" + this._sleepStart.getFullYear();
-    }
-
-    sleepEndYear(): string {
-        return "" + this._sleepEnd.getFullYear();
-    }
-
-    sleepStartDay(): string {
-        const options = {
-            day: "numeric"
-        } as const;
-        const locale: string = "en-US";
-
-        return this._sleepStart.toLocaleString(locale, options);
-    }
-
-    sleepEndDay(): string {
-        const options = {
-            day: "numeric"
-        } as const;
-        const locale: string = "en-US";
-
-        return this._sleepEnd.toLocaleString(locale, options);
     }
 }
