@@ -53,8 +53,12 @@
     <h2 class="ion-padding-horizontal">Sleepiness Logs</h2>
     <ion-card class="log" *ngFor="let log of sleepService.sleepinessLogs">
       <ion-card-header>
-        <ion-card-title>{{ log.formattedSleepStartStrings()[1] }}</ion-card-title>
-        <ion-card-subtitle>{{ log.formattedSleepStartStrings()[0]}}, {{ log.formattedSleepinessDate() }}</ion-card-subtitle>
+        <ion-card-title>
+          {{ log.sleepinessTitle() }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ log.sleepinessSubtitle() }}
+        </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <ion-row>
@@ -63,7 +67,7 @@
           </ion-col>
         </ion-row>
       </ion-card-content>
-      <ion-button fill="clear" color="primary" (click)="showModal(log)">Edit</ion-button>
+      <ion-button fill="clear" color="primary" (click)="showModal($any(log))">Edit</ion-button>
       <ion-button fill="clear" color="danger" (click)="deleteSleepinessLog($any(log).id)">Delete</ion-button>
     </ion-card>
   </div>

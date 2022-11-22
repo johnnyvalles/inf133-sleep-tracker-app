@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OvernightSleepLog } from '../types/overnight-sleep-log';
 import { SleepinessLog } from '../types/sleepiness-log';
-import { OVERNIGHT_SLEEP_LOGS, SLEEPINESS_LOGS } from '../data/logs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,11 @@ export class SleepService {
   }
 
   deleteOvernightSleepLog(id: string): boolean {
-    let index = this.overnightLogs.findIndex(log => log.id === id);
-    if (index !== -1) {
-      this.overnightLogs.splice(index, 1);
-      return true;
-    }
+    // let index = this.overnightLogs.findIndex(log => log.id === id);
+    // if (index !== -1) {
+    //   this.overnightLogs.splice(index, 1);
+    //   return true;
+    // }
     return false;
   }
 
@@ -37,7 +36,7 @@ export class SleepService {
     let index = this.sleepinessLogs.findIndex(log => log.id === id);
     if (index !== -1) {
       this.sleepinessLogs[index].sleepiness = value;
-      this.sleepinessLogs[index].sleepinessDate = new Date(date);
+      this.sleepinessLogs[index].date = date;
       return true;
     }
     return false;

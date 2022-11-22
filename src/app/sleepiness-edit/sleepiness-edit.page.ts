@@ -20,10 +20,11 @@ export class SleepinessEditPage implements OnInit {
     private modalController: ModalController,
     private sleepService: SleepService,
     private toastController: ToastController
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.sleepinessDate = this.sleepinessLog.sleepinessDate.toISOString();
+    this.sleepinessDate = this.sleepinessLog.date;
     this.sleepiness = this.sleepinessLog.sleepiness;
   }
 
@@ -35,7 +36,6 @@ export class SleepinessEditPage implements OnInit {
       position: "top",
       color: "success"
     });
-
     await toast.present();
   }
 

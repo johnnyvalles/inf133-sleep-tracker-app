@@ -4,6 +4,7 @@ import { SleepinessLog } from '../types/sleepiness-log';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { SleepinessEditPage } from '../sleepiness-edit/sleepiness-edit.page';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-sleepiness',
@@ -11,14 +12,20 @@ import { SleepinessEditPage } from '../sleepiness-edit/sleepiness-edit.page';
   styleUrls: ['sleepiness.page.scss']
 })
 export class SleepinessPage {
-  public sleepinessValue: number = 1;
-  public sleepinessDate: string = new Date().toISOString();
+  public sleepinessValue: number;
+  public sleepinessDate: string;
 
   constructor(
     public sleepService: SleepService,
     private toastController: ToastController,
     private modalController: ModalController
-  ) {}
+  ) {
+    this.sleepinessValue = 1;
+    // const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // const zonedTime = utcToZonedTime(date, zone);
+    // this.sleepinessDate = (format(zonedTime, "yyyy-LL-dd'T'HH:mm:'00'XXX", { timeZone: zone }));
+    this.sleepinessDate = format(parseISO(new Date().toISOString()), "yyyy-LL-dd'T'HH:mm:'00'XXX");
+  }
 
   async showModal(log: SleepinessLog) {
     const modal = await this.modalController.create({
@@ -56,8 +63,7 @@ export class SleepinessPage {
   }
 
   onCreateLog() {
-    // Create date from ISO-8601 formats
-    let log = new SleepinessLog(this.sleepinessValue, new Date(this.sleepinessDate));
+    const log = new SleepinessLog(this.sleepinessDate, this.sleepinessValue);
     this.sleepService.sleepinessLogs.unshift(log);
     this.presentSuccessToast("Sleepiness log created.");
   }

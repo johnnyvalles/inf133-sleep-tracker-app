@@ -12,13 +12,17 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{ sleepinessLog.formattedSleepStartStrings()[1] }}</ion-card-title>
-      <ion-card-subtitle>{{ sleepinessLog.formattedSleepStartStrings()[0]}}, {{ sleepinessLog.formattedSleepinessDate() }}</ion-card-subtitle>
+      <ion-card-title>
+        {{ sleepinessLog.sleepinessTitle() }}
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ sleepinessLog.sleepinessSubtitle() }}
+      </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
         <ion-col>
-          {{ sleepinessLog.sleepiness }}: {{ sleepinessLog.description }}
+          {{ sleepinessLog.description }}
         </ion-col>
       </ion-row>
     </ion-card-content>
@@ -35,6 +39,7 @@
           [pin]="true"
           [min]="1"
           [max]="7"
+          [value]="sleepiness"
           [(ngModel)]="sleepiness"
         >
           <ion-icon slot="start" name="happy-outline"></ion-icon>
