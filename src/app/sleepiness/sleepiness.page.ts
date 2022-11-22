@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { SleepinessLog } from '../types/sleepiness-log';
 import { ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { SleepinessEditPage } from '../sleepiness-edit/sleepiness-edit.page';
 
 @Component({
   selector: 'app-sleepiness',
@@ -14,8 +16,19 @@ export class SleepinessPage {
 
   constructor(
     public sleepService: SleepService,
-    private toastController: ToastController
-  ) {
+    private toastController: ToastController,
+    private modalController: ModalController
+  ) {}
+
+  async showModal(log: SleepinessLog) {
+    const modal = await this.modalController.create({
+      component: SleepinessEditPage,
+      componentProps: {
+        sleepinessLog: log
+      }
+    });
+
+    await modal.present();
   }
 
   async presentSuccessToast(msg: string) {

@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { SleepinessPage } from './sleepiness.page';
 
 import { SleepinessPageRoutingModule } from './sleepiness-routing.module';
+import { SleepinessEditPageModule } from '../sleepiness-edit/sleepiness-edit.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    SleepinessPageRoutingModule
+    SleepinessPageRoutingModule,
+    SleepinessEditPageModule
   ],
   declarations: [SleepinessPage]
 })

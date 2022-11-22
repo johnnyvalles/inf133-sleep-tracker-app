@@ -31,4 +31,15 @@ export class SleepService {
     }
     return false;
   }
+
+  // date is in ISO8601 format
+  updateSleepinessLog(id: string, date: string, value: number): boolean {
+    let index = this.sleepinessLogs.findIndex(log => log.id === id);
+    if (index !== -1) {
+      this.sleepinessLogs[index].sleepiness = value;
+      this.sleepinessLogs[index].sleepinessDate = new Date(date);
+      return true;
+    }
+    return false;
+  }
 }
