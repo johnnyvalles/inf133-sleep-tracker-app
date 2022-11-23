@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IonItemSliding } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-import { stringify } from 'querystring';
 import { SleepinessLog } from '../types/sleepiness-log';
 import { ToastController } from '@ionic/angular';
 import { OvernightSleepLog } from '../types/overnight-sleep-log';
