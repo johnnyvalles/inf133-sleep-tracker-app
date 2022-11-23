@@ -37,7 +37,6 @@ export class OvernightSleepPage {
   async ngOnInit() {
     let data = await this.sleepStorageService.getOvernightSleepLogs();
     this.overnightSleepLogs = data;
-    console.log(this.overnightSleepLogs);
   }
 
   async presentSuccessToast(msg: string) {
@@ -109,7 +108,6 @@ export class OvernightSleepPage {
         }
       },
     });
-
     await modal.present();
   }
 }
