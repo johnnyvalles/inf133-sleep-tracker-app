@@ -66,21 +66,24 @@
         <ion-row>
           <ion-col>
             <ion-icon name="moon"></ion-icon> 
-            {{ sleepLog.overnightSleepStart() }}
-          </ion-col>
-          <ion-col>
-            <ion-icon name="sunny"></ion-icon> 
-            {{ sleepLog.overnightSleepEnd() }}
+            Slept at {{ sleepLog.overnightSleepStart() }} on {{ sleepLog.overnightSleepSubtitleStart() }}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            {{ sleepLog.notes }}
+              <ion-icon name="sunny"></ion-icon> 
+              Awoke at {{ sleepLog.overnightSleepEnd() }} on {{ sleepLog.overnightSleepSubtitleEnd() }}
           </ion-col>
         </ion-row>
+        <ion-row *ngIf="sleepLog.notes">
+          <ion-col>
+            <ion-icon name="pencil"></ion-icon>
+            Notes: {{ sleepLog.notes }}
+          </ion-col>
+        </ion-row>
+        <ion-button fill="clear" color="primary" (click)="showModal($any(sleepLog))">Edit</ion-button>
+        <ion-button fill="clear" color="danger" (click)="deleteOvernightSleepLog($any(sleepLog))">Delete</ion-button>
       </ion-card-content>
-      <ion-button fill="clear" color="primary" (click)="showModal($any(sleepLog))">Edit</ion-button>
-      <ion-button fill="clear" color="danger" (click)="deleteOvernightSleepLog($any(sleepLog))">Delete</ion-button>
     </ion-card>
   </div>
 </ion-content>

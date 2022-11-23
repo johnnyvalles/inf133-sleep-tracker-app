@@ -42,8 +42,12 @@ export class OvernightSleepLog extends SleepLog {
         return format(parseISO(this._sleepStart), 'MMMM d, yyyy');
     }
 
-    overnightSleepSubtitle(): string {
-        return format(parseISO(this._sleepStart), 'MM/dd/yyyy, hh:mm a');
+    overnightSleepSubtitleStart(): string {
+        return format(parseISO(this._sleepStart), 'MM/dd/yyyy');
+    }
+
+    overnightSleepSubtitleEnd(): string {
+        return format(parseISO(this._sleepEnd), 'MM/dd/yyyy');
     }
 
     overnightSleepStart(): string {
