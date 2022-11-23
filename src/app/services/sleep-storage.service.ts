@@ -132,7 +132,6 @@ export class SleepStorageService {
     if (result) {
       result.forEach((item: any) => {
         let log: OvernightSleepLog = new OvernightSleepLog(item.start, item.end, item.notes);
-        console.log(log);
         log.id = item.id;
         overnightSleepLogs.push(log);
       });
