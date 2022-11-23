@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
-import { SleepService } from '../services/sleep.service';
+import { SleepStorageService } from '../services/sleep-storage.service';
 import { OvernightSleepLog } from '../types/overnight-sleep-log';
 
 @Component({
@@ -12,6 +12,7 @@ import { OvernightSleepLog } from '../types/overnight-sleep-log';
 })
 export class OvernightSleepEditPage implements OnInit {
   @Input() sleepLog!: OvernightSleepLog;
+  @Input() updateParent: any;
 
   public sleepStart?: string;
   public sleepEnd?: string;
@@ -19,7 +20,7 @@ export class OvernightSleepEditPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private sleepService: SleepService,
+    private sleepStorageService: SleepStorageService,
     private toastController: ToastController
   ) {
   }
@@ -64,7 +65,7 @@ export class OvernightSleepEditPage implements OnInit {
     let end = new Date(this.sleepEnd!);
 
     if (start.getTime() == end.getTime()) {
-      this.presentErrorToast("Start and end times cannot be the same.");
+      this.presentErrorToast("Start and end date and times cannot be the same.");
       return;
     }
 
@@ -73,8 +74,7 @@ export class OvernightSleepEditPage implements OnInit {
       return;
     }
 
-    if (this.sleepService.updateOvernightSleepLog(this.sleepLog.id!, this.sleepStart!, this.sleepEnd!, this.notes!)) {
-      this.presentSuccessToast("Sleepiness log has been updated.");
-    }
+    await this.sleepStorageService.updateOvernightSleepLog(this.sleepLog, this.sleepStart!, this.sleepEnd!, this.notes!);
+    await this.updateParent();
   }
 }

@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage-angular';
 import { stringify } from 'querystring';
 import { SleepinessLog } from '../types/sleepiness-log';
 import { ToastController } from '@ionic/angular';
+import { OvernightSleepLog } from '../types/overnight-sleep-log';
 
 
 const SLEEPINESS_KEY: string = "sleepiness-logs";
@@ -14,6 +15,13 @@ interface BasicSleepinessLog {
   id: string,
   date: string,
   sleepiness: number
+}
+
+interface BasicOvernightSleepLog {
+  id: string,
+  start: string,
+  end: string,
+  notes: string
 }
 
 @Injectable({
@@ -30,7 +38,6 @@ export class SleepStorageService {
 
   async init() {
     this.storage = await this.storage.create();
-    console.log("DB CREATED!");
   }
 
   // CREATE SleepinessLog
@@ -114,5 +121,69 @@ export class SleepStorageService {
       color: "danger"
     });
     await toast.present();
+  }
+
+
+  // READ OvernightSleepLogs
+  async getOvernightSleepLogs() {
+    let result = await this.storage.get(OVERNIGHT_KEY);
+    let overnightSleepLogs: OvernightSleepLog[] = [];
+
+    if (result) {
+      result.forEach((item: any) => {
+        let log: OvernightSleepLog = new OvernightSleepLog(item.start, item.end, item.notes);
+        console.log(log);
+        log.id = item.id;
+        overnightSleepLogs.push(log);
+      });
+    }
+    return overnightSleepLogs;
+  }
+
+  // CREATE SleepinessLog
+  async createOvernightSleepLog(sleepLog: OvernightSleepLog) {
+    let log: BasicOvernightSleepLog = {
+      id: sleepLog.id!,
+      start: sleepLog.sleepStart!,
+      end: sleepLog.sleepEnd!,
+      notes: sleepLog.notes!
+    }
+
+    let dbLogs = await this.storage.get(OVERNIGHT_KEY);
+    if (!dbLogs) {
+      await this.storage.set(OVERNIGHT_KEY, [log]);
+    } else {
+      dbLogs.unshift(log);
+      let result = await this.storage.set(OVERNIGHT_KEY, dbLogs);
+      if (result) {
+        this.presentSuccessToast("Overnight sleep log created.");
+      }
+    }
+  }
+
+  // DELETE SleepinessLog
+  async deleteOvernightSleepLog(sleepLog: OvernightSleepLog) {
+    let data = await this.storage.get(OVERNIGHT_KEY);
+    if (data && data.length > 0) {
+      await this.storage.set(OVERNIGHT_KEY, data.filter((item: BasicOvernightSleepLog) => { return item.id !== sleepLog.id }));
+      this.presentSuccessToast("Overnight sleep log deleted.");
+    }
+  }
+
+  // UPDATE OvernightSleepLog
+  async updateOvernightSleepLog(sleepLog: OvernightSleepLog, newStart: string, newEnd: string, newNotes: string) {
+    let data = await this.storage.get(OVERNIGHT_KEY);
+
+    if (data && data.length > 0) {
+      let index = data.findIndex((item: BasicOvernightSleepLog) => item.id === sleepLog.id);
+
+      if (index !== -1) {
+        data[index].start = newStart;
+        data[index].end = newEnd;
+        data[index].notes = newNotes;
+        await this.storage.set(OVERNIGHT_KEY, data);
+        this.presentSuccessToast("Overnight sleep log updated.");
+      }      
+    }
   }
 }

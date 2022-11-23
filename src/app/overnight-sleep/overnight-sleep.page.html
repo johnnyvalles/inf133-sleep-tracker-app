@@ -53,7 +53,7 @@
   </ion-card>
   <div class="previous-logs">
     <h2 class="ion-padding-horizontal">Sleep Logs</h2>
-    <ion-card *ngFor="let sleepLog of sleepService.overnightLogs" class="log">
+    <ion-card *ngFor="let sleepLog of overnightSleepLogs" class="log">
       <ion-card-header>
         <ion-card-title>
           {{ sleepLog.overnightSleepTitle() }}
@@ -80,7 +80,7 @@
         </ion-row>
       </ion-card-content>
       <ion-button fill="clear" color="primary" (click)="showModal($any(sleepLog))">Edit</ion-button>
-      <ion-button fill="clear" color="danger" (click)="deleteOvernightSleepLog($any(sleepLog).id)">Delete</ion-button>
+      <ion-button fill="clear" color="danger" (click)="deleteOvernightSleepLog($any(sleepLog))">Delete</ion-button>
     </ion-card>
   </div>
 </ion-content>

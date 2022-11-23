@@ -38,7 +38,7 @@ export class SleepinessPage {
   }
 
   async deleteSleepinessLog(sleepinessLog: SleepinessLog) {
-    let result = await this.sleepStorageService.deleteSleepinessLog(sleepinessLog);
+    await this.sleepStorageService.deleteSleepinessLog(sleepinessLog);
     let data = await this.sleepStorageService.getSleepinessLogs();
     this.sleepinessLogs = data;
   }
@@ -54,7 +54,6 @@ export class SleepinessPage {
         }
       }
     });
-
     await modal.present();
   }
 }
