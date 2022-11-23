@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SleepinessLog } from '../types/sleepiness-log';
-import { SleepService } from '../services/sleep.service';
-import { ToastController } from '@ionic/angular';
-
+import { SleepStorageService } from '../services/sleep-storage.service';
 
 @Component({
   selector: 'app-sleepiness-edit',
@@ -12,14 +10,14 @@ import { ToastController } from '@ionic/angular';
 })
 export class SleepinessEditPage implements OnInit {
   @Input() sleepinessLog!: SleepinessLog;
+  @Input() updateParent: any;
 
   public sleepinessDate?: string;
   public sleepiness?: number;
 
   constructor(
     private modalController: ModalController,
-    private sleepService: SleepService,
-    private toastController: ToastController
+    private sleepStorageService: SleepStorageService,
   ) {
   }
 
@@ -28,25 +26,13 @@ export class SleepinessEditPage implements OnInit {
     this.sleepiness = this.sleepinessLog.sleepiness;
   }
 
-  async presentSuccessToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 1500,
-      icon: "checkmark-circle",
-      position: "top",
-      color: "success"
-    });
-    await toast.present();
-  }
-
   async close() {
     await this.modalController.dismiss();
   }
 
   async confirm() {
     await this.modalController.dismiss();
-    if (this.sleepService.updateSleepinessLog(this.sleepinessLog.id!, this.sleepinessDate!, this.sleepiness!)) {
-      this.presentSuccessToast("Sleepiness log has been updated.");
-    }
+    await this.sleepStorageService.updateSleepinessLog(this.sleepinessLog, this.sleepinessDate!, this.sleepiness!);
+    await this.updateParent();
   }
 }
