@@ -12,4 +12,62 @@
       <ion-title size="large">Summary</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="moon-outline"></ion-icon> 
+        Overnight Sleep
+      </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <h2 *ngIf="overnightTotal > 0">You've logged a total of {{ overnightTotal}} overnight sleep logs.</h2>
+      <h2 *ngIf="overnightTotal === 0">Uh oh! Go to the Sleep page to begin logging your overnight sleep.</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="success">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="happy-outline"></ion-icon>
+        Sleepiness</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <h2 *ngIf="sleepinessTotal > 0">You've logged a total of {{ sleepinessTotal}} sleepiness logs.</h2>
+      <h2 *ngIf="sleepinessTotal === 0">Uh oh! Go to the Sleepiness page to begin logging how sleepy you're feeling.</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="tertiary"
+  *ngIf="overnightTotal !== 0 || sleepinessTotal !== 0">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="stats-chart-outline"></ion-icon>
+        Statistics</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row *ngIf="overnightTotal !== 0">
+        Average Sleep Duration: {{ averageDuration }}
+      </ion-row>
+      <ion-row *ngIf="sleepinessTotal !== 0">
+        Average Sleepiness: {{ averageSleepiness }}
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card color="warning">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Stanford Sleepiness Scale</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row 
+        *ngFor="let value of values; let i = index "
+        class="ion-padding-bottom"
+      >
+        {{ i + 1}}: {{ value }}
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
