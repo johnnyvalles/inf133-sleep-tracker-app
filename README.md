@@ -1,3 +1,24 @@
+DEMO VIDEO:
+https://www.youtube.com/watch?v=6eMjvtjyxAQ&list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv  (QUICK DEMO)
+https://www.youtube.com/watch?v=2OzV0zqbs6w&list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv  (LONG DEMO)
+
+
+DEMO PLAYLIST
+https://www.youtube.com/playlist?list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv
+
+
+TIME STAMPS (QUICK DEMO):
+Logging overnight sleep, viewing, editing-> 00:00
+Logging sleepiness, viewing, editing -> 00:23
+Evidence of backup -> 00:32
+
+
+TIME STAMPS (LONG DEMO):
+Logging overnight sleep, viewing, editing-> 00:03
+Logging sleepiness, viewing, editing -> 01:02
+Evidence of backup -> 01:50
+Explantion of useful initial view -> 02:40
+
 --Readme document for Johnathon Valles, vallesja@uci.edu, 88843608--
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
@@ -88,25 +109,3 @@ Modals -> used to bring up a contained edit/update form for individual logs.
 Edit/Delete/Cancel buttons -> allow a user undo any actions.
 Useful initial view -> the home page displays a summary of the sleep scale, and also encourages the user to proceed to the sleep and sleepiness pages to begin logging.
 Error prevention -> when creating logs, a log will not be created if there is a violation in the start and end constraints (informed with a red toast).
-
-
-DEMO VIDEO:
-https://www.youtube.com/watch?v=6eMjvtjyxAQ&list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv  (QUICK DEMO)
-https://www.youtube.com/watch?v=2OzV0zqbs6w&list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv  (LONG DEMO)
-
-
-DEMO PLAYLIST
-https://www.youtube.com/playlist?list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv
-
-
-TIME STAMPS (QUICK DEMO):
-Logging overnight sleep, viewing, editing-> 00:00
-Logging sleepiness, viewing, editing -> 00:23
-Evidence of backup -> 00:32
-
-
-TIME STAMPS (LONG DEMO):
-Logging overnight sleep, viewing, editing-> 00:03
-Logging sleepiness, viewing, editing -> 01:02
-Evidence of backup -> 01:50
-Explantion of useful initial view -> 02:40
