@@ -1,8 +1,3 @@
-DEMO VIDEO:
-https://www.youtube.com/watch?v=6eMjvtjyxAQ&list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv  (QUICK DEMO)
-https://www.youtube.com/watch?v=2OzV0zqbs6w&list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv  (LONG DEMO)
-
-
 DEMO PLAYLIST
 https://www.youtube.com/playlist?list=PLHZYcg_jTrbRiLQb9VqVtPXBC-gpDFFjv
 
